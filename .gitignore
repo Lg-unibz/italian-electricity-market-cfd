@@ -1,0 +1,27 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cdsapirc
+.env
+
+# Local inputs and generated outputs are rebuilt from the documented sources.
+data/raw/
+data/processed/
+results/
+release/
+
+# Downloaded archives and optional map files.
+*.zip
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.xlsx
+*.xls
+*.png
+*.pdf

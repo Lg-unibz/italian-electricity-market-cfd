@@ -1,0 +1,23 @@
+{
+  "upload_type": "software",
+  "title": "Italian Electricity Market CfD Backtest",
+  "version": "1.0.0",
+  "publication_date": "2026-07-28",
+  "description": "Reproducible preprocessing and historical backtest code for comparing market-only wind revenues with conventional, zonal-yardstick, and financial CfD settlements in Italy over 2015-2024.",
+  "creators": [
+    {
+      "name": "Gambadori, Lorenzo"
+    }
+  ],
+  "license": "mit",
+  "access_right": "open",
+  "language": "eng",
+  "keywords": [
+    "electricity markets",
+    "contracts for difference",
+    "wind power",
+    "Italy",
+    "reproducible research"
+  ],
+  "notes": "GME and Terna raw files are not redistributed in this software archive. A separate Zenodo data deposit can be built with scripts/build_zenodo_data_deposit.py; see data/source_manifest.csv for source and rights information."
+}

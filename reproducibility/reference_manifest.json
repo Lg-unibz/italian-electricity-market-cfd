@@ -1,0 +1,759 @@
+{
+  "schema_version": 1,
+  "release_version": "1.0.0",
+  "study_period": "2015-2024",
+  "generated_on": "2026-07-28",
+  "reference_environment": {
+    "python": "3.14.0",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "packages": {
+      "cdsapi": "0.7.7",
+      "matplotlib": "3.11.0",
+      "numpy": "2.5.0",
+      "pandas": "3.0.4",
+      "pyproj": "3.7.2",
+      "seaborn": "0.13.2"
+    }
+  },
+  "scientific_software": [
+    {
+      "path": "src/cfd_analysis/__init__.py",
+      "size_bytes": 49,
+      "sha256": "af3beddc7be13252b0cc2bcf2591df5a671413e701d398db05666281d8eabc1d"
+    },
+    {
+      "path": "src/cfd_analysis/copernicus_normalization.py",
+      "size_bytes": 7236,
+      "sha256": "8d65b98ff8f6cf3dd5743c46bd9194ea8e7f34f72b7e46b7b251c2b489494bfe"
+    },
+    {
+      "path": "src/cfd_analysis/geography.py",
+      "size_bytes": 20634,
+      "sha256": "eb0497c92129afebd4785cc82d6b8e73f83122479625e4098e5359fbae1dbb47"
+    },
+    {
+      "path": "src/cfd_analysis/historical_backtest.py",
+      "size_bytes": 21387,
+      "sha256": "fc86a985c93ec770cab0e4cc21c4f75f61a0f0d5b011ae25a953a3207649bb07"
+    },
+    {
+      "path": "src/cfd_analysis/historical_inputs.py",
+      "size_bytes": 19297,
+      "sha256": "90841379ae688a2f055ddab542682d0a5a585836de2b2bfc080b1d719fa6750b"
+    },
+    {
+      "path": "src/cfd_analysis/mechanisms.py",
+      "size_bytes": 32060,
+      "sha256": "226b43c8764ce328c83cf82086211b2f02cfba848cba34412f6c02d9aee209df"
+    },
+    {
+      "path": "src/market_preprocessing/__init__.py",
+      "size_bytes": 80,
+      "sha256": "7a8fdd03215e05d34835494f3ed499bdc83320a91c930bc4f5c955a83204c91f"
+    },
+    {
+      "path": "src/market_preprocessing/audit.py",
+      "size_bytes": 7086,
+      "sha256": "3844b476dd8d1066e7d60efe3326e02411bd67a3de5a9734e929b6b7b2d50308"
+    },
+    {
+      "path": "src/market_preprocessing/config.py",
+      "size_bytes": 2457,
+      "sha256": "a6cf6bf81df746f09b06f4f47169875ce815395fe9f6c9ee32fd14bf23f94c64"
+    },
+    {
+      "path": "src/market_preprocessing/gme_prices.py",
+      "size_bytes": 3556,
+      "sha256": "dd08071fd67377c12e6a0afee23b667056638f234bc8ebd5f60d3feb8cb03424"
+    },
+    {
+      "path": "src/market_preprocessing/mapping.py",
+      "size_bytes": 2068,
+      "sha256": "26fe48b7ee3f0fc496cf39fe03d824756359a142dcee6f53fe96452652e3329a"
+    },
+    {
+      "path": "src/market_preprocessing/preprocess.py",
+      "size_bytes": 10839,
+      "sha256": "2c1c56145c03e8e84b00a3448328d94aaf4d5ce663870074385aa680b4f896f9"
+    },
+    {
+      "path": "src/market_preprocessing/preprocess_types.py",
+      "size_bytes": 1292,
+      "sha256": "6569c8806e328a05f89fc143086c989d1e3efae5f034ff10e94cdc4dfcb2b361"
+    },
+    {
+      "path": "src/market_preprocessing/terna_wind.py",
+      "size_bytes": 15956,
+      "sha256": "221281d7f7fa2a71d28a4ac41cc01c67104c611f793a9f0a3a55e69891183a4b"
+    },
+    {
+      "path": "src/market_preprocessing/visualization.py",
+      "size_bytes": 11321,
+      "sha256": "53cff2296d1f8db711dfd03ad620f4f4e4ec19ed7b6a97f074c425208bcc96a1"
+    },
+    {
+      "path": "src/market_preprocessing/xlsx_io.py",
+      "size_bytes": 3938,
+      "sha256": "a7b15c8d0c84828856814c3c814892d8356ab208d52e845fee85c75309cbcd6b"
+    },
+    {
+      "path": "scripts/build_reference_manifest.py",
+      "size_bytes": 7258,
+      "sha256": "d96d1d888695477a9cb729613618aa37f811448edff797551a78ced97952284e"
+    },
+    {
+      "path": "scripts/build_zenodo_data_deposit.py",
+      "size_bytes": 7156,
+      "sha256": "239e02c9ab3e047016afefb05eef70202ab74e0569ac3da591bf8687760b59e3"
+    },
+    {
+      "path": "scripts/check_publication_package.py",
+      "size_bytes": 2307,
+      "sha256": "4d5d24c7c5e75a0d8aebc588656e6e1a1bbfa0855dc693d46a1c762296b84f33"
+    },
+    {
+      "path": "scripts/fetch_copernicus_wind_archives.py",
+      "size_bytes": 3650,
+      "sha256": "2b88c1ebefc6e8a447a2ded127acb6eef5b4a2caabfd2fe1f9bf07305c037128"
+    },
+    {
+      "path": "scripts/fetch_istat_boundaries.py",
+      "size_bytes": 2487,
+      "sha256": "2fd41c18f682135b5fd61af1c0d0eb2364373ef5e9be502a4b573253dbf0f233"
+    },
+    {
+      "path": "scripts/fetch_natural_earth_admin1.py",
+      "size_bytes": 2400,
+      "sha256": "9e430e20105fcd4f6425921c78e7365bb92079e3f8dab2a60d4a3692566615d4"
+    },
+    {
+      "path": "scripts/fetch_terna_historical_wind.py",
+      "size_bytes": 3011,
+      "sha256": "3f96e8110422857edde91bc85f2fd4546d8c5bc06bbda7b152adf2a36433a40c"
+    },
+    {
+      "path": "scripts/fetch_terna_wind_data.py",
+      "size_bytes": 600,
+      "sha256": "33dd95708c85fc1782d4dc5ed6b328708b87b846fea7f79ff0caeb76af01dbbf"
+    },
+    {
+      "path": "scripts/prepare_copernicus_wind.py",
+      "size_bytes": 6568,
+      "sha256": "6aabcb046896294f6d56897d10d03ccd74846dbf71bc80822c52d033ee53f866"
+    },
+    {
+      "path": "scripts/run_historical_cfd_backtest.py",
+      "size_bytes": 1874,
+      "sha256": "e0f10945aac6d4e64ad17c2fdaa1df6246ad7eab4ab641c5bbabf91c11014c5e"
+    },
+    {
+      "path": "scripts/run_pipeline.py",
+      "size_bytes": 796,
+      "sha256": "47a84567ecf48509e4b8e55baabd5b76cbcbafe073e80a47c252b6ce67a69489"
+    },
+    {
+      "path": "scripts/verify_manuscript_consistency.py",
+      "size_bytes": 16573,
+      "sha256": "c5292e480ee1edc99b60b3393c861aed045f6e1ac11a52a9f88cbba7bb9c8666"
+    },
+    {
+      "path": "scripts/verify_reproduction.py",
+      "size_bytes": 3880,
+      "sha256": "d881bfdd7842b7a64f6b0f3587bcdcee78429ab9cab0d4986cdac2fc9c942c61"
+    },
+    {
+      "path": "tests/test_historical_cfd.py",
+      "size_bytes": 23358,
+      "sha256": "78a8d7982711be5af9f2793aec833c446a774621d1b434e372e9543d022ced45"
+    },
+    {
+      "path": "tests/test_package_manifest.py",
+      "size_bytes": 2072,
+      "sha256": "0ffdc843ed3b119d624546d6ff0354409a169fd8db6ca2f2fe8b4bf4fecd27f2"
+    },
+    {
+      "path": "requirements.txt",
+      "size_bytes": 78,
+      "sha256": "68934a18dfff9f052f876ea55817392d428d16fd69bdc69c40c19e6c696b7ff8"
+    },
+    {
+      "path": "requirements-lock.txt",
+      "size_bytes": 491,
+      "sha256": "ca2469dc3c7626ddb259bc4826df867f709a6ac306565e62e13c409b634a5430"
+    },
+    {
+      "path": "pyproject.toml",
+      "size_bytes": 547,
+      "sha256": "1a693659cf0e1a07c9be66ae3433d255e9529bf293fefcb9d4e97b09fe7e93e6"
+    },
+    {
+      "path": ".python-version",
+      "size_bytes": 7,
+      "sha256": "a3c1031631e89bddd65ef22311f8268e239bee1939a1d9a033e834d4540b4ad9"
+    }
+  ],
+  "runtime_inputs": [
+    {
+      "path": "data/raw/xlsx/20150101_20151231_MGP_PrezziZonali.xlsx",
+      "size_bytes": 263604,
+      "sha256": "7cefb0134ff17ef3162e2adad7ef1eba3b65aac50aa206ffc2a4d151ae1221a4"
+    },
+    {
+      "path": "data/raw/xlsx/20160101_20161231_MGP_PrezziZonali.xlsx",
+      "size_bytes": 256995,
+      "sha256": "83103072afd55033d68b7501fd97595e0d43e9cfcf7d5937a2dbff64b3ffdf9d"
+    },
+    {
+      "path": "data/raw/xlsx/20170101_20171231_MGP_PrezziZonali.xlsx",
+      "size_bytes": 244017,
+      "sha256": "b663a9f4a318a3d74eaccaf4993597d6b8a4f1a86a23da13e272c81abae4a3c4"
+    },
+    {
+      "path": "data/raw/xlsx/20180101_20181231_MGP_PrezziZonali.xlsx",
+      "size_bytes": 236650,
+      "sha256": "5a0ad97e5ab515e720b3ce24e8912829bfd2b787c2550fdf636b1f474318ef30"
+    },
+    {
+      "path": "data/raw/xlsx/20190101_20191231_MGP_PrezziZonali.xlsx",
+      "size_bytes": 244573,
+      "sha256": "d8a119e18b101b2301e2d1d06f33ccffb2b1f606ba5ac6a0378bd368c492d6c2"
+    },
+    {
+      "path": "data/raw/xlsx/20200101_20201231_MGP_PrezziZonali.xlsx",
+      "size_bytes": 241802,
+      "sha256": "0ddb2bb3e9c6f5bdbfa22637e519bd939c470afd018f0144a0fb256f0533aa2c"
+    },
+    {
+      "path": "data/raw/xlsx/20210101_20211231_MGP_PrezziZonali.xlsx",
+      "size_bytes": 219406,
+      "sha256": "c8d9a871d5b3689ff4cd4d92c962f708d421ecac023ff2a9fa248663439845b9"
+    },
+    {
+      "path": "data/raw/xlsx/20220101_20221231_MGP_PrezziZonali.xlsx",
+      "size_bytes": 205226,
+      "sha256": "e55b748fdeb1948a716cfd19a1afc148ab28822963c1ce0807e798581ef54279"
+    },
+    {
+      "path": "data/raw/xlsx/20230101_20231231_MGP_PrezziZonali.xlsx",
+      "size_bytes": 186425,
+      "sha256": "7904ea2d05663ddff8bd100c0c1eb4ddbad755ccb90c2ab01c9852bf9304bc0c"
+    },
+    {
+      "path": "data/raw/xlsx/20240101_20241231_MGP_PrezziZonali.xlsx",
+      "size_bytes": 192695,
+      "sha256": "bbcc15fb15fc10f82912513c2c94cb818702a8739386a0558ca828cf24e4d890"
+    },
+    {
+      "path": "data/raw/terna/terna_capacity_renewable_sources_2015.csv",
+      "size_bytes": 51102,
+      "sha256": "8a5172f6dc58624195127530e0776c2dd70767de4daf8684a011111368c49766",
+      "row_order_insensitive_sha256": "490461da650f7e357b78a90ac5deadcd6156d82ae157fe38784bcd488e2f87f1"
+    },
+    {
+      "path": "data/raw/terna/terna_capacity_renewable_sources_2016.csv",
+      "size_bytes": 51284,
+      "sha256": "f78cd25e0a2c662a5b03a516f0cb034cab9f52e841c9878c4bb678000d22759c",
+      "row_order_insensitive_sha256": "3d2183dea5ce48df5f209bbf58574963af358c21a9c4df16a1c10b7ad9c5ec0a"
+    },
+    {
+      "path": "data/raw/terna/terna_capacity_renewable_sources_2017.csv",
+      "size_bytes": 52337,
+      "sha256": "eae291f2ecbdadb8b264fb3e3a8a83fe1d14e53f0696a229db7b7ffc6f4d9b28",
+      "row_order_insensitive_sha256": "eb10777fa6702f96662692c6efb4b39ffdcda1baa7dada5a204c2e97aea59897"
+    },
+    {
+      "path": "data/raw/terna/terna_capacity_renewable_sources_2018.csv",
+      "size_bytes": 51300,
+      "sha256": "f5d929393d616f0d47741cc9186dfb52d503e73eb073a0c9ac92292ac04bafc0",
+      "row_order_insensitive_sha256": "46a12b5d1ea3c1acb42ac078848a9a9f51d9a948a00be66cb395788dafc96690"
+    },
+    {
+      "path": "data/raw/terna/terna_capacity_renewable_sources_2019.csv",
+      "size_bytes": 53153,
+      "sha256": "390a72905b2fa37458e4a4eba7b1f4bc3af0077fa4006e3b371282db2dfb9310",
+      "row_order_insensitive_sha256": "4ee2a0ead1e2a6bbb5b8bdcc0503afd8f0aff1b877f28d09f0120a72a450861f"
+    },
+    {
+      "path": "data/raw/terna/terna_capacity_renewable_sources_2020.csv",
+      "size_bytes": 53436,
+      "sha256": "ebeaf138049a6c94e194f858e989ed52311d4bdedd8da4463b60e697ebdd5a72",
+      "row_order_insensitive_sha256": "e9379cfef6b28b40ffc033d415a335f4a6c19095f38e568ddef33e59863af34e"
+    },
+    {
+      "path": "data/raw/terna/terna_capacity_renewable_sources_2021.csv",
+      "size_bytes": 53702,
+      "sha256": "de1ecbe09f17db21ef1663f0675644acd44840341af5b683192ab061110f1431",
+      "row_order_insensitive_sha256": "f763c1a5cfa917e681f4e955af40894ab4bc6134e88827436adcfce63325ce1b"
+    },
+    {
+      "path": "data/raw/terna/terna_capacity_renewable_sources_2022.csv",
+      "size_bytes": 54115,
+      "sha256": "87fd94d709fcd4f6c2fdd3edf396a400e2483fd536560c984e4792d493654e3e",
+      "row_order_insensitive_sha256": "9141fe922319bcc5ee02daeefe5fb7782cb40a2fbd657e7472f37f6af31e7e09"
+    },
+    {
+      "path": "data/raw/terna/terna_capacity_renewable_sources_2023.csv",
+      "size_bytes": 54304,
+      "sha256": "2dcbe04ce9b400bfdda80433c0292ca859e507b2668c6e6ab9782c68e3d5c6be",
+      "row_order_insensitive_sha256": "3ecfab99c69a778fc6e2bdfa46a756a8332ec7fb0468c084dc7580870440eabb"
+    },
+    {
+      "path": "data/raw/terna/terna_capacity_renewable_sources_2024.csv",
+      "size_bytes": 50703,
+      "sha256": "e96f3d514a62c67e2c48664deebc1166ed552042ad573c56094efbe59c152ba4",
+      "row_order_insensitive_sha256": "5f4f90f51cf388585103508541042d5a7daf8a104c6c967b214203b16c0cc40a"
+    },
+    {
+      "path": "data/raw/terna/terna_production_renewable_sources_2015.csv",
+      "size_bytes": 53584,
+      "sha256": "3fa6488ec2f2bfb1a646020854d6842d1f82ee8925210b454968855abc3e3fda",
+      "row_order_insensitive_sha256": "1fb28503f81a7995345e62000166b2f45960126a8b2852eeb790166f5590e3e8"
+    },
+    {
+      "path": "data/raw/terna/terna_production_renewable_sources_2016.csv",
+      "size_bytes": 53610,
+      "sha256": "6eb21d9aea9b24f32d148b5664ff65974b10fbaa77db65b489bdaa676bc90e0a",
+      "row_order_insensitive_sha256": "3be6814b059a984b667064d68aa0ad1f11262efea3078d0e47de823fd0d39e4f"
+    },
+    {
+      "path": "data/raw/terna/terna_production_renewable_sources_2017.csv",
+      "size_bytes": 52014,
+      "sha256": "ce403015fea5a688ae3ff1ee68194e8fa45aebf1facd60089c5e27c7a7bee813",
+      "row_order_insensitive_sha256": "57e4a5dcd268b5bad88a1c0bd6e2acff7490c85a8bd463b27e0041ce79ace017"
+    },
+    {
+      "path": "data/raw/terna/terna_production_renewable_sources_2018.csv",
+      "size_bytes": 52016,
+      "sha256": "82ae8fd2cfaaa1672816cd412f9101a0fcd27b3f046a8dff24a97b051a0aa436",
+      "row_order_insensitive_sha256": "32f9fde957f14cb9bb4360a56cd2fa97ec07fca896d839f2fba1c35a00cbaa46"
+    },
+    {
+      "path": "data/raw/terna/terna_production_renewable_sources_2019.csv",
+      "size_bytes": 52069,
+      "sha256": "c5617e504c743ac958f93179e0890f3aee5f8cd9c134ec5e5a44e683eea17b65",
+      "row_order_insensitive_sha256": "45bef2c5ec594fe6680b1666be01b89ef48e26499091bbc94f3de4148d9016bd"
+    },
+    {
+      "path": "data/raw/terna/terna_production_renewable_sources_2020.csv",
+      "size_bytes": 52065,
+      "sha256": "ca5761185085e9e0b9864c6ac85df7ef0dbf43b6ddb7a54ca5a70b35b5968ffe",
+      "row_order_insensitive_sha256": "6f87c2792ce179f7c9d1bc04d0f6c51bb58bb223dd77289ce80e5a80f73b26f8"
+    },
+    {
+      "path": "data/raw/terna/terna_production_renewable_sources_2021.csv",
+      "size_bytes": 52971,
+      "sha256": "4d2995fb5025e38668bea2b930a7de2129d38453944fb3655e51538dc339e279",
+      "row_order_insensitive_sha256": "f1be24ff0e500fd359f80d398c873e92ad310b35029304e161488b297b81bd79"
+    },
+    {
+      "path": "data/raw/terna/terna_production_renewable_sources_2022.csv",
+      "size_bytes": 49973,
+      "sha256": "8fc445a3e68cfc7f3a707369f2067221f7b8f7e2ac5d0aaa5a96bf90114855d4",
+      "row_order_insensitive_sha256": "fdf09d134be4281b24e935a995d12095dead609cb79c0350f43a774f0bdbf4a7"
+    },
+    {
+      "path": "data/raw/terna/terna_production_renewable_sources_2023.csv",
+      "size_bytes": 52989,
+      "sha256": "a60c3eb26f829382e896d6fdfd6cbe495bc19bd6ebc45f9e822bb0e24ace479d",
+      "row_order_insensitive_sha256": "6d232c5ead429dd8f9819a85870fc9a5dba0c9c779fda7b6fe1814a9b9bf9d8b"
+    },
+    {
+      "path": "data/raw/terna/terna_production_renewable_sources_2024.csv",
+      "size_bytes": 52975,
+      "sha256": "d14127208b37317e92753c336db3df68ea3361db86eeb0a8f9a9f354ddac6846",
+      "row_order_insensitive_sha256": "1c7d802333b19c6d011752df2d12315a0d981e31b01b8e219c359a383c90f3d2"
+    },
+    {
+      "path": "data/raw/terna/terna_wind_production_forecast_2024.csv",
+      "size_bytes": 8907635,
+      "sha256": "fdb5e1f47cc5bfd289e8fc5aefcd4c8acb73aa670e1281d71097c33aa081434b",
+      "row_order_insensitive_sha256": "6d61253c64aa6d7b3319ac48c4348578b4a65e30aa33076f3a3345c7a30778dc"
+    },
+    {
+      "path": "data/raw/copernicus/onshore_wind_capacity_factor_adm1_2015_2024.csv",
+      "size_bytes": 583889251,
+      "sha256": "4949a3840cfd7a5049960add309840567d8091f5fa5af0f3910086222a412ba5"
+    },
+    {
+      "path": "data/raw/istat/Limiti01012024_g/Limiti01012024_g/Reg01012024_g/Reg01012024_g_WGS84.cpg",
+      "size_bytes": 5,
+      "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824"
+    },
+    {
+      "path": "data/raw/istat/Limiti01012024_g/Limiti01012024_g/Reg01012024_g/Reg01012024_g_WGS84.dbf",
+      "size_bytes": 2374,
+      "sha256": "ab24b17e5fa33fbafabc564ff10622a7d0ece44e17d9edeefc5125d79f0f88ff"
+    },
+    {
+      "path": "data/raw/istat/Limiti01012024_g/Limiti01012024_g/Reg01012024_g/Reg01012024_g_WGS84.prj",
+      "size_bytes": 400,
+      "sha256": "10a2674d7bc43a70df19daf98d0b1deb3f5222f03659e1b4d82b395c20177cb9"
+    },
+    {
+      "path": "data/raw/istat/Limiti01012024_g/Limiti01012024_g/Reg01012024_g/Reg01012024_g_WGS84.shp",
+      "size_bytes": 1321464,
+      "sha256": "25b2577572bdb4d7e252a7fb8742d730d4eeee2103345b39c3eeac55c8fcef86"
+    },
+    {
+      "path": "data/raw/istat/Limiti01012024_g/Limiti01012024_g/Reg01012024_g/Reg01012024_g_WGS84.shx",
+      "size_bytes": 260,
+      "sha256": "e877fcc70981b45ea55f456600b978b614f90fd44d8edb4e962f094fa58a2a8d"
+    }
+  ],
+  "normalization_provenance": [
+    {
+      "path": "data/raw/copernicus/cds_archives/global_admin1_onshore_wind_2014.zip",
+      "size_bytes": 45273377,
+      "sha256": "76ec900eca738756c7dcd4a60cc0e9d5b70ec8edbd075a1b3d3161e8f4ac0dc1"
+    },
+    {
+      "path": "data/raw/copernicus/cds_archives/global_admin1_onshore_wind_2015.zip",
+      "size_bytes": 529619792,
+      "sha256": "76a9129eff1ba637a1c75b56b04a47b73b877ff3429e9897d7c7beed505d11ad"
+    },
+    {
+      "path": "data/raw/copernicus/cds_archives/global_admin1_onshore_wind_2016.zip",
+      "size_bytes": 532456910,
+      "sha256": "b32c2a353420357e6dede834d89dc866ff54016dcabe914f97f82d50fbec30c1"
+    },
+    {
+      "path": "data/raw/copernicus/cds_archives/global_admin1_onshore_wind_2017.zip",
+      "size_bytes": 532084243,
+      "sha256": "617a8f3743bf8c5c7da58083682d3ec23fd1aa0a1b484f629252babb733cb1ca"
+    },
+    {
+      "path": "data/raw/copernicus/cds_archives/global_admin1_onshore_wind_2018.zip",
+      "size_bytes": 530233962,
+      "sha256": "d745dee3784af814e5bb899fcdea995b72152fe441215f090c7a46d2445c5d32"
+    },
+    {
+      "path": "data/raw/copernicus/cds_archives/global_admin1_onshore_wind_2019.zip",
+      "size_bytes": 531359201,
+      "sha256": "c9475b6a523e5ae19b0db44c1ad06c2f69f0102f2238873fec9890cac2f273b1"
+    },
+    {
+      "path": "data/raw/copernicus/cds_archives/global_admin1_onshore_wind_2020.zip",
+      "size_bytes": 530407068,
+      "sha256": "5c3d8f877e37b98bb2c120cc8cc0d368fd0fca39a66c82aba43592019176929d"
+    },
+    {
+      "path": "data/raw/copernicus/cds_archives/global_admin1_onshore_wind_2021.zip",
+      "size_bytes": 531775610,
+      "sha256": "c6b8b20c9068c9a09aa2c1dff990aac2de539cf4351bedadd00ee0b4e642f15a"
+    },
+    {
+      "path": "data/raw/copernicus/cds_archives/global_admin1_onshore_wind_2022.zip",
+      "size_bytes": 530227720,
+      "sha256": "77c2f8ba4914e9546f849176f7eb3df16d7f3050ef7afeaee4f7cb45cad90113"
+    },
+    {
+      "path": "data/raw/copernicus/cds_archives/global_admin1_onshore_wind_2023.zip",
+      "size_bytes": 529981554,
+      "sha256": "68e45fa846977bf2d3ad40a4f87011c4b8bae37bfaaf070ecbcf29a9f30f6852"
+    },
+    {
+      "path": "data/raw/copernicus/cds_archives/global_admin1_onshore_wind_2024.zip",
+      "size_bytes": 531439896,
+      "sha256": "05fe2191a3330add62a66c162897ac09a6e11945d5c949a9e3cb880dc614bcde"
+    },
+    {
+      "path": "data/raw/copernicus/natural_earth_admin1/download_metadata.json",
+      "size_bytes": 537,
+      "sha256": "7a3394a6c1411000e2f5653eb6494d7f18b6c48a0b8b178cf6fc3cc4a9e24fba"
+    },
+    {
+      "path": "data/raw/copernicus/natural_earth_admin1/ne_10m_admin_1_states_provinces.cpg",
+      "size_bytes": 5,
+      "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824"
+    },
+    {
+      "path": "data/raw/copernicus/natural_earth_admin1/ne_10m_admin_1_states_provinces.dbf",
+      "size_bytes": 15161514,
+      "sha256": "445a8a9bea889634faf0af18081830df0b05b8471fc6af8dc42aecdd7a71bba1"
+    },
+    {
+      "path": "data/raw/copernicus/natural_earth_admin1/ne_10m_admin_1_states_provinces.prj",
+      "size_bytes": 145,
+      "sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4"
+    },
+    {
+      "path": "data/raw/copernicus/natural_earth_admin1/ne_10m_admin_1_states_provinces.README.html",
+      "size_bytes": 44181,
+      "sha256": "27d12def2c79a2ff3744abb27a3ba2783334f4dc1ec2dedc3ce3c00c4ea71e25"
+    },
+    {
+      "path": "data/raw/copernicus/natural_earth_admin1/ne_10m_admin_1_states_provinces.shp",
+      "size_bytes": 20998780,
+      "sha256": "c6f5c8b4b1320d9417033762419c6df1eb423989cd880fba78ea0b1e3522cbe4"
+    },
+    {
+      "path": "data/raw/copernicus/natural_earth_admin1/ne_10m_admin_1_states_provinces.shx",
+      "size_bytes": 36868,
+      "sha256": "37a9e2bc79ed31d3bdea3cb62d928f77281a1c88d645cd33430231c75dbcf350"
+    },
+    {
+      "path": "data/raw/copernicus/natural_earth_admin1/ne_10m_admin_1_states_provinces.VERSION.txt",
+      "size_bytes": 7,
+      "sha256": "548358969090d629b41888f5fe664ac31b7203dfd849f7c1ef820ac055b62191"
+    },
+    {
+      "path": "data/raw/copernicus/natural_earth_admin1/ne_10m_admin_1_states_provinces.zip",
+      "size_bytes": 14909524,
+      "sha256": "efc59726337323058f9446210adc96673179cd344e053666ee3d28cb58ba2b05"
+    }
+  ],
+  "preprocessing_outputs": [
+    {
+      "path": "data/processed/data_audit.csv",
+      "size_bytes": 15786,
+      "sha256": "ebcc3af8dd70322979f1258024eca93dac3b52d637b58371f7d3222df5eff311"
+    },
+    {
+      "path": "data/processed/figure_capacity_factor_by_region_2024.csv",
+      "size_bytes": 54497524,
+      "sha256": "44a9f1356edd1f9200a4e15c5ff3d69631278a0ea651189b5add5f7f69d5224e"
+    },
+    {
+      "path": "data/processed/figure_market_value_decomposition_2024.csv",
+      "size_bytes": 1190,
+      "sha256": "f4c2ac72021a192d5c121ec504370f11c46cb7dfb8a3160263423992d20c059e"
+    },
+    {
+      "path": "data/processed/figure_simple_market_revenue_2024.csv",
+      "size_bytes": 18325266,
+      "sha256": "819584b275f21b19197f3cd37965fd431934640b65d70eed25c3d96b6ee96804"
+    },
+    {
+      "path": "data/processed/figure_zonal_prices_2024.csv",
+      "size_bytes": 6316421,
+      "sha256": "92ef102e56a162b0cab3e385ed9af08b3c60f2f002ca93bdabb5673217611a8c"
+    },
+    {
+      "path": "data/processed/figures/preprocessing/capacity_factor_by_region_2024_all.png",
+      "size_bytes": 1025223,
+      "sha256": "c5ea1bc9ca71b20b13c242e218593c26316f007003fe7fa3b15a158e1f2515ba"
+    },
+    {
+      "path": "data/processed/figures/preprocessing/capacity_factor_by_region_2024_calabria.png",
+      "size_bytes": 150119,
+      "sha256": "7a3784da840cad688859eed8b35b877bee9dba9d0375a42628740bcb20065e31"
+    },
+    {
+      "path": "data/processed/figures/preprocessing/capacity_factor_by_region_2024_centro_nord.png",
+      "size_bytes": 181464,
+      "sha256": "3621b1ea1e395d52ac5cdaf7fd089a8b997148ffe891dc0f4244d412c898d87c"
+    },
+    {
+      "path": "data/processed/figures/preprocessing/capacity_factor_by_region_2024_centro_sud.png",
+      "size_bytes": 316703,
+      "sha256": "3156720afddfcd1d558d815817f51ced60c0d29924e56ca891ab257d2516d181"
+    },
+    {
+      "path": "data/processed/figures/preprocessing/capacity_factor_by_region_2024_nord.png",
+      "size_bytes": 560037,
+      "sha256": "fcec647164371e0707c1082ad8b5c43d8b53af5a89bf5c2455188f1dd42f7164"
+    },
+    {
+      "path": "data/processed/figures/preprocessing/capacity_factor_by_region_2024_sardegna.png",
+      "size_bytes": 152247,
+      "sha256": "40a6dc3cf38362df1694d1d7fb269b677cc2d57529a7731a24f82655ce5c30d6"
+    },
+    {
+      "path": "data/processed/figures/preprocessing/capacity_factor_by_region_2024_sicilia.png",
+      "size_bytes": 147799,
+      "sha256": "12ac3b1fd6f520b4805f5262a1ed289beaf4108be04e38cc8d9be24d1cb8ac35"
+    },
+    {
+      "path": "data/processed/figures/preprocessing/capacity_factor_by_region_2024_sud.png",
+      "size_bytes": 298865,
+      "sha256": "c06f87228d569c6d2f246c876434ae334417fa6903ff1518717fdcd6fe20db14"
+    },
+    {
+      "path": "data/processed/figures/preprocessing/market_value_decomposition_by_zone_2024.png",
+      "size_bytes": 329758,
+      "sha256": "07d301643d18e030153535112f85c94b7c98aed99509678d8ef50bf39499c118"
+    },
+    {
+      "path": "data/processed/figures/preprocessing/simple_market_revenue_by_zone_2024.png",
+      "size_bytes": 728863,
+      "sha256": "cea42cc170757df15e1307915f2d3b61cbdd971ed43b3689a0a0d7c00cf35fae"
+    },
+    {
+      "path": "data/processed/figures/preprocessing/zonal_price_by_zone_2024.png",
+      "size_bytes": 710808,
+      "sha256": "07523c493377a73811eb4965d875019b43cb3294fd0a7ab7dd0820237a290df4"
+    },
+    {
+      "path": "data/processed/gme_zonal_prices_2024.csv",
+      "size_bytes": 6316421,
+      "sha256": "92ef102e56a162b0cab3e385ed9af08b3c60f2f002ca93bdabb5673217611a8c"
+    },
+    {
+      "path": "data/processed/preprocessing_panel_2024.csv",
+      "size_bytes": 18325266,
+      "sha256": "819584b275f21b19197f3cd37965fd431934640b65d70eed25c3d96b6ee96804"
+    },
+    {
+      "path": "data/processed/regional_wind_capacity_factors_2024.csv",
+      "size_bytes": 54497524,
+      "sha256": "44a9f1356edd1f9200a4e15c5ff3d69631278a0ea651189b5add5f7f69d5224e"
+    },
+    {
+      "path": "data/processed/zonal_wind_capacity_factors_2024.csv",
+      "size_bytes": 17237124,
+      "sha256": "a6f0fce98ad57b46c92d49c7492d992e49c765f2e93f4263ab924877721fe9db"
+    },
+    {
+      "path": "data/processed/zone_region_mapping_2024.json",
+      "size_bytes": 898,
+      "sha256": "64af82dc903b38f913586796fcc9ec33f16e2f7ab8bc2df66adc7974aab6ca0b"
+    }
+  ],
+  "historical_backtest_outputs": [
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/figures/cfd_comparison_mean_revenue_k_p25.png",
+      "size_bytes": 1445470,
+      "sha256": "cbb043c3217a8cb72b745251130272df02c26bb2c1dd3f92dcc6b1533420c322"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/figures/cfd_comparison_mean_revenue_k_p50.png",
+      "size_bytes": 1443369,
+      "sha256": "654f061cb92c91c73d92e7f8ffe20a844663d87206279e05f565d56e4a0bea19"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/figures/cfd_comparison_net_public_cost_k_p25.png",
+      "size_bytes": 1463895,
+      "sha256": "9a5aee23d441e8b70707b0b9bdd2d43e30422cde1860dd0e8f74e5bca8bb3201"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/figures/cfd_comparison_net_public_cost_k_p50.png",
+      "size_bytes": 1481132,
+      "sha256": "4d51b8dea65afd0cc914059f36eb973bebb4eb8672c17e8e86ed4731e14e6d0f"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/figures/cfd_comparison_sharpe_ratio_k_p25.png",
+      "size_bytes": 1447128,
+      "sha256": "270133e13e81188502d0ecbc31cafef45095b7606e5326a0209e97b6051e1dcb"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/figures/cfd_comparison_sharpe_ratio_k_p50.png",
+      "size_bytes": 1447216,
+      "sha256": "2aea8979f5d080c46d4ec49385e3fd0e3d6cc032ee63b4c4247ba57713241d52"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/figures/italy_market_only_maps.png",
+      "size_bytes": 1592315,
+      "sha256": "c31891ab10953188eee2c23bdca597885af29bf222b4ec87cf1c11e4fa6fab8b"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/figures/italy_regional_wind_capacity_factor.png",
+      "size_bytes": 651202,
+      "sha256": "29ba84cab88d66bf36eb65918db70fffb1cdc0ab588f19f582a1a8cb704878eb"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/annual_market_only_value_factor.csv",
+      "size_bytes": 20298,
+      "sha256": "56cab7a0795cf283b8474fc264e8b4f3e364abb560373c2c1dbb6bd6e5a99255"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/annual_national_mechanism_results.csv",
+      "size_bytes": 17757,
+      "sha256": "9203730f5d4b525c99f822553f02f7858200e8204162dd2443587603688c2f91"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/annual_region_mechanism_results.csv",
+      "size_bytes": 293422,
+      "sha256": "f0cdb9331c23d32f8891f3da9293bbce4a10123746377a4dc298bce0a175e052"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/copernicus_hourly_coverage_audit.csv",
+      "size_bytes": 108622,
+      "sha256": "8be9225c2bfaa491ac382ceb9c50b881138d93636907109521d0cbd859749abc"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/copernicus_technology_selection.csv",
+      "size_bytes": 393,
+      "sha256": "143f7dc114b20d6d7b625e035474303fad58c5842437955b87a6ebf1c59a9a88"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/copernicus_terna_annual_validation.csv",
+      "size_bytes": 6189,
+      "sha256": "ad52828fddaaddc84c9c84d9deda4f60fa35193b60471a7d85fe4edc358bd9ca"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/five_metric_summary.csv",
+      "size_bytes": 1327,
+      "sha256": "323daf2a7b15fa2220688e891b390e9ea3cdf89f76d2b27844f591c6b53819da"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/gme_price_sign_audit.csv",
+      "size_bytes": 413,
+      "sha256": "51366df251b6481842efaf21e49f7658ca6382e42ebf3af2d0351843a94daedf"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/historical_region_zone_mapping.csv",
+      "size_bytes": 63576,
+      "sha256": "fc6e44843573b6dd918fdb37bebd46f9825a855848235da7fb2ad9561203417a"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/inflation_real_2024_audit.csv",
+      "size_bytes": 1059,
+      "sha256": "1dcdb34b45e7bb1e06fb139d2b6f829be7878260a98cf42c6dae30cc0a2c67cb"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/market_only_value_factor_10_year_mean.csv",
+      "size_bytes": 863,
+      "sha256": "99204ce7635f7600e87da1a4ec3e187f377ee35313363531d74fc3a32c99b41c"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/regional_capacity_factor_map_source.csv",
+      "size_bytes": 1663,
+      "sha256": "e82ce07ae9855fdca3559eed484922def9e03b71b9a792acba780910e937355c"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/regional_comparison_map_source.csv",
+      "size_bytes": 9243,
+      "sha256": "157e5a6d6fb98930e7f47645bf11cd90ef07c5edaf741fb20bf261f4b4f4272b"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/regional_five_metric_summary.csv",
+      "size_bytes": 22893,
+      "sha256": "06222affbda74763d8a0e07c1acb76bafb3b2a45766159c5ebbb3589bfea394c"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/regional_metric_distribution_summary.csv",
+      "size_bytes": 2286,
+      "sha256": "990a800335aa72609089d7fc3bc029273ac40ade01a32277373e2a3c344bfa5c"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/regional_value_factor_summary.csv",
+      "size_bytes": 1797,
+      "sha256": "cfc349d3cc39c608cfaaf5d4d81c5ae7d11bf7da14087517838159268432b2c3"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/terna_annual_capacity_production_audit.csv",
+      "size_bytes": 12779,
+      "sha256": "9a3091d383ad1d2c5fc17bff70c5874d4038a19a056321f470bcca99e19c9911"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/uniform_strike_calibration.csv",
+      "size_bytes": 832,
+      "sha256": "85f964c38aa09c921807de8e646fac08677b6b20f2bbc04080dbaf8c28794067"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/zonal_heatmap_source.csv",
+      "size_bytes": 6270,
+      "sha256": "19552a38fcf15baf1b037055c7a47b622c8b00a1d30ee67bf18fcab7745403a1"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/zonal_yardstick_30000_mwh_limit.csv",
+      "size_bytes": 1470,
+      "sha256": "a5a1db25ed24c3bf9e70be6e306a0704eca09af339c6e232a743d8b2312da960"
+    }
+  ],
+  "manuscript": {
+    "path": "main.tex",
+    "size_bytes": 38802,
+    "sha256": "db7de523073a5e9c449307ad9d51ae8badeb77537b00192803fd3baa9eb60753"
+  }
+}

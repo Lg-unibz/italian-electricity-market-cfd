@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "Italian Electricity Market CfD Backtest"
+type: software
+version: 1.0.0
+date-released: 2026-07-28
+authors:
+  - family-names: Gambadori
+    given-names: Lorenzo
+license: MIT
+keywords:
+  - electricity markets
+  - contracts for difference
+  - wind power
+  - Italy
+  - reproducible research
+abstract: >-
+  Reproducible preprocessing and historical backtest code for comparing
+  market-only wind revenues with conventional, zonal-yardstick, and financial
+  CfD settlements in Italy over 2015--2024.
