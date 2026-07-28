@@ -25,8 +25,11 @@ and a new hybrid mechanism are outside this release.
 GME and Terna raw files are intentionally not bundled because their provider
 terms do not establish an unrestricted redistribution licence. The normalized
 Copernicus input is about 584 MB uncompressed and therefore exceeds GitHub's
-regular 100 MB per-file limit. The complete acquisition, normalization, and
-separate Zenodo-data workflow is documented in [`data/README.md`](data/README.md),
+regular 100 MB per-file limit.
+The companion Zenodo dataset is available at
+[10.5281/zenodo.21640789](https://doi.org/10.5281/zenodo.21640789). The
+acquisition, normalization, and data-release workflow is documented in
+[`data/README.md`](data/README.md),
 [`data/source_manifest.csv`](data/source_manifest.csv), and
 [`docs/reproducibility.md`](docs/reproducibility.md).
 

@@ -18,3 +18,11 @@ abstract: >-
   Reproducible preprocessing and historical backtest code for comparing
   market-only wind revenues with conventional, zonal-yardstick, and financial
   CfD settlements in Italy over 2015--2024.
+references:
+  - type: dataset
+    title: "Italian Electricity Market CfD Backtest: normalized wind input and reproduced outputs"
+    authors:
+      - family-names: Gambadori
+        given-names: Lorenzo
+    doi: 10.5281/zenodo.21640789
+    version: 1.0.0

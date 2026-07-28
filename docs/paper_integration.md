@@ -11,7 +11,8 @@ Data Store, Eurostat, ISTAT, and Natural Earth at the locations cited in this
 article. Reproducible source code is archived on GitHub and Zenodo at
 [SOFTWARE DOI]. The normalized Copernicus input, exact input checksums, result
 tables, and figures are archived in the companion Zenodo dataset at
-[DATASET DOI]. GME and Terna raw files are not redistributed; they can be
+[10.5281/zenodo.21640789](https://doi.org/10.5281/zenodo.21640789). GME and
+Terna raw files are not redistributed; they can be
 obtained from the providers and verified against the archived SHA-256 manifest.
 ```
 

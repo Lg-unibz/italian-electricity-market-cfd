@@ -44,20 +44,22 @@ publish the record.
 
 ## 3. Link the data DOI before the software release
 
-Add the dataset DOI to `.zenodo.json`:
+The published companion dataset DOI is
+[`10.5281/zenodo.21640789`](https://doi.org/10.5281/zenodo.21640789). It has
+been added to `.zenodo.json` as:
 
 ```json
 "related_identifiers": [
   {
-    "identifier": "https://doi.org/<DATASET_DOI>",
+    "identifier": "https://doi.org/10.5281/zenodo.21640789",
     "relation": "isSupplementedBy",
     "resource_type": "dataset"
   }
 ]
 ```
 
-Add the same DOI to `CITATION.cff` and the manuscript Data Availability
-statement. Commit and push these metadata changes.
+The same DOI is recorded in `CITATION.cff`. Add it to the manuscript Data
+Availability statement, then commit and push these metadata changes.
 
 ## 4. Archive software release v1.0.0
 

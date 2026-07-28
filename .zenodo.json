@@ -19,5 +19,12 @@
     "Italy",
     "reproducible research"
   ],
-  "notes": "GME and Terna raw files are not redistributed in this software archive. A separate Zenodo data deposit can be built with scripts/build_zenodo_data_deposit.py; see data/source_manifest.csv for source and rights information."
+  "related_identifiers": [
+    {
+      "identifier": "https://doi.org/10.5281/zenodo.21640789",
+      "relation": "isSupplementedBy",
+      "resource_type": "dataset"
+    }
+  ],
+  "notes": "GME and Terna raw files are not redistributed in this software archive. The companion Zenodo dataset is available at https://doi.org/10.5281/zenodo.21640789; see data/source_manifest.csv for source and rights information."
 }
