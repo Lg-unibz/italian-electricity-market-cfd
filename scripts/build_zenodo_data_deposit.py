@@ -13,7 +13,7 @@ from pathlib import Path
 
 
 PACKAGE_ROOT = Path(__file__).resolve().parents[1]
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 COPERNICUS_RELATIVE = (
     Path("data")
     / "raw"
@@ -127,7 +127,7 @@ def main() -> int:
             (
                 "# Italian Electricity Market CfD Backtest data deposit",
                 "",
-                "This dataset record accompanies software release v1.0.0.",
+                f"This dataset record accompanies software release v{VERSION}.",
                 "",
                 "Included:",
                 "",
@@ -172,7 +172,7 @@ def main() -> int:
         "description": (
             "Normalized Copernicus/ERA5-derived Italian regional wind capacity "
             "factors and the exact tables and figures reproduced by software "
-            "release v1.0.0 for the 2015-2024 historical CfD backtest."
+            f"release v{VERSION} for the 2015-2024 historical CfD backtest."
         ),
         "notes": (
             "GME and Terna raw files are excluded. Their provider locations and "

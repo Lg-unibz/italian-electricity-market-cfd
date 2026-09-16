@@ -6,11 +6,13 @@ import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
+from matplotlib.colors import LogNorm, SymLogNorm
 from matplotlib.image import imread
 import pandas as pd
 
 from cfd_analysis.geography import (
     RegionGeometry,
+    _build_colour_norm,
     _select_mechanism_values,
     plot_market_only_metrics,
 )
@@ -34,7 +36,18 @@ from cfd_analysis.mechanisms import (
     calculate_sharpe_ratio,
     settle_hourly,
 )
-from cfd_analysis.historical_backtest import _format_map_source_for_export
+from cfd_analysis.historical_backtest import (
+    _add_leave_one_out_benchmark,
+    _build_regional_proxy_validation_annual,
+    _build_regional_proxy_validation_summary,
+    _build_zonal_concentration_annual,
+    _build_zonal_concentration_summary,
+    _build_zonal_public_settlement_annual,
+    _build_zonal_public_settlement_summary,
+    _build_centro_sud_leave_one_out_annual,
+    _build_centro_sud_leave_one_out_summary,
+    _format_map_source_for_export,
+)
 from market_preprocessing.mapping import REGION_TO_ZONE
 
 
@@ -54,6 +67,163 @@ class HistoricalMappingTests(unittest.TestCase):
         self.assertEqual(len(local_delivery_slots(2020)), 8_784)
         slots = local_delivery_slots(2024)["timestamp_utc"]
         self.assertTrue(slots.is_unique)
+
+
+class CentroSudLeaveOneOutTests(unittest.TestCase):
+    """Verify the diagnostic-only benchmark self-influence calculation."""
+
+    def test_leave_one_out_identity_and_single_region_boundary(self) -> None:
+        panel = pd.DataFrame(
+            {
+                "installed_capacity_mw": [8.0, 2.0, 10.0],
+                "zone_installed_capacity_mw": [10.0, 10.0, 10.0],
+                "quantity_mwh_per_mw": [0.6, 0.2, 0.4],
+                "benchmark_mwh_per_mw": [0.52, 0.52, 0.4],
+            }
+        )
+        result = _add_leave_one_out_benchmark(panel)
+        self.assertAlmostEqual(result.loc[0, "own_capacity_share"], 0.8)
+        self.assertAlmostEqual(result.loc[0, "leave_one_out_benchmark_mwh_per_mw"], 0.2)
+        self.assertAlmostEqual(result.loc[0, "quantity_mwh_per_mw"] - result.loc[0, "benchmark_mwh_per_mw"], (1 - result.loc[0, "own_capacity_share"]) * (result.loc[0, "quantity_mwh_per_mw"] - result.loc[0, "leave_one_out_benchmark_mwh_per_mw"]))
+        self.assertFalse(result.loc[2, "leave_one_out_defined"])
+        self.assertTrue(pd.isna(result.loc[2, "leave_one_out_benchmark_mwh_per_mw"]))
+
+    def test_centro_sud_contracts_preserve_historical_umbria_window(self) -> None:
+        rows = []
+        for year in range(2015, 2025):
+            regions = ("Campania", "Abruzzo", "Lazio") + (("Umbria",) if year >= 2021 else ())
+            capacities = {"Campania": 8.0, "Abruzzo": 1.0, "Lazio": 1.0, "Umbria": 1.0}
+            total = sum(capacities[region] for region in regions)
+            quantities = {"Campania": 0.6, "Abruzzo": 0.3, "Lazio": 0.2, "Umbria": 0.4}
+            benchmark = sum(capacities[region] * quantities[region] for region in regions) / total
+            for region in regions:
+                rows.append({
+                    "year": year, "timestamp_utc": pd.Timestamp(f"{year}-01-01", tz="UTC"),
+                    "region": region, "zone": "Centro Sud",
+                    "installed_capacity_mw": capacities[region], "zone_installed_capacity_mw": total,
+                    "quantity_mwh_per_mw": quantities[region], "benchmark_mwh_per_mw": benchmark,
+                    "price_real_2024_eur_per_mwh": 50.0,
+                })
+        annual = _build_centro_sud_leave_one_out_annual(
+            pd.DataFrame(rows), annualized_cost_real_2024_eur_per_mw=100.0,
+            yardstick_strike_real_2024_eur_per_mwh=90.0,
+        )
+        summary = _build_centro_sud_leave_one_out_summary(annual)
+        self.assertEqual(len(annual), 34)
+        self.assertEqual(len(summary), 8)
+        self.assertEqual(annual.loc[annual["region"].eq("Umbria"), "year"].tolist(), [2021, 2022, 2023, 2024])
+        self.assertTrue(summary.loc[summary["region"].eq("Umbria"), "eligible_years"].eq(4).all())
+
+    def test_validated_campania_diagnostic_values(self) -> None:
+        path = Path("results/historical_cfd_backtest_2015_2024/tables/centro_sud_leave_one_out_summary.csv")
+        if not path.is_file():
+            self.skipTest("Validated local diagnostic output is not available")
+        summary = pd.read_csv(path)
+        campania = summary.loc[
+            summary["region"].eq("Campania") & summary["mechanism"].eq("Financial CfD")
+        ].iloc[0]
+        self.assertEqual(len(summary), 8)
+        self.assertAlmostEqual(campania["mean_own_capacity_share"], 0.8346, places=4)
+        self.assertAlmostEqual(campania["inclusive_mean_annual_revenue_real_2024_eur_per_mw"], 182_406.51, places=2)
+        self.assertAlmostEqual(campania["leave_one_out_mean_annual_revenue_real_2024_eur_per_mw"], 203_144.37, places=2)
+        self.assertAlmostEqual(campania["inclusive_std_annual_revenue_real_2024_eur_per_mw"], 2_131.60, places=2)
+        self.assertAlmostEqual(campania["leave_one_out_std_annual_revenue_real_2024_eur_per_mw"], 13_969.29, places=2)
+
+
+class PreSubmissionRefinementTests(unittest.TestCase):
+    """Verify transparent validation, concentration, and public-flow summaries."""
+
+    def test_regional_validation_keeps_micro_fleets_and_rank_correlation(self) -> None:
+        panel = pd.DataFrame(
+            {
+                "year": [2020, 2020, 2021, 2021],
+                "region": ["A", "B", "A", "B"],
+                "zone": ["Z", "Z", "Z", "Z"],
+                "quantity_mwh_per_mw": [1.0, 2.0, 2.0, 4.0],
+            }
+        )
+        terna = pd.DataFrame(
+            {
+                "year": [2020, 2020, 2021, 2021],
+                "region": ["A", "B", "A", "B"],
+                "installed_capacity_mw": [5.0, 20.0, 5.0, 20.0],
+                "observed_generation_mwh": [1.0, 4.0, 0.0, 8.0],
+                "observed_mwh_per_mw": [0.2, 0.2, 0.0, 0.4],
+            }
+        )
+        annual = _build_regional_proxy_validation_annual(panel, terna)
+        summary = _build_regional_proxy_validation_summary(annual)
+        self.assertEqual(len(annual), 4)
+        self.assertEqual(int(annual["observed_production_positive"].sum()), 3)
+        self.assertTrue(annual.loc[annual["region"].eq("A"), "is_micro_fleet_lt_10_mw"].all())
+        pooled = summary.loc[
+            summary["geographic_level"].eq("pooled_region_year")
+            & summary["analysis_population"].eq("positive_observed_production")
+        ].iloc[0]
+        self.assertEqual(pooled["eligible_region_years"], 3)
+        self.assertAlmostEqual(pooled["spearman_rho"], 0.8660254037844387)
+
+    def test_concentration_summary_uses_ratio_not_regression(self) -> None:
+        rows = []
+        for year, price in [(2020, 20.0), (2021, 50.0)]:
+            for region, quantity, capacity in [("A", 0.8, 8.0), ("B", 0.2, 2.0)]:
+                rows.append(
+                    {
+                        "year": year,
+                        "timestamp_utc": pd.Timestamp(f"{year}-01-01", tz="UTC"),
+                        "region": region,
+                        "zone": "Z",
+                        "installed_capacity_mw": capacity,
+                        "zone_installed_capacity_mw": 10.0,
+                        "quantity_mwh_per_mw": quantity,
+                        "benchmark_mwh_per_mw": 0.68,
+                        "price_real_2024_eur_per_mwh": price,
+                    }
+                )
+        annual = _build_zonal_concentration_annual(
+            pd.DataFrame(rows),
+            annualized_cost_real_2024_eur_per_mw=100.0,
+            yardstick_strike_real_2024_eur_per_mwh=90.0,
+        )
+        summary = _build_zonal_concentration_summary(annual)
+        self.assertEqual(len(annual), 8)
+        self.assertEqual(len(summary), 4)
+        self.assertTrue(summary["inclusive_to_leave_one_out_sd_ratio"].between(0, 1).all())
+        self.assertAlmostEqual(float(annual.loc[annual["region"].eq("A"), "zonal_hhi"].iloc[0]), 0.68)
+
+    def test_public_summary_excludes_crisis_years_without_rewriting_history(self) -> None:
+        annual_region = pd.DataFrame(
+            {
+                "year": [2020, 2021, 2022, 2023, 2020, 2021, 2022, 2023],
+                "region": ["A", "A", "A", "A", "B", "B", "B", "B"],
+                "zone": ["Z"] * 8,
+                "mechanism": ["conventional_cfd"] * 8,
+                "strike_label": ["K_P50"] * 8,
+                "strike_real_2024_eur_per_mwh": [90.0] * 8,
+                "installed_capacity_mw": [2.0] * 8,
+                "top_up_real_2024_eur_per_mw": [10.0, 10.0, 10.0, 10.0, 20.0, 20.0, 20.0, 20.0],
+                "clawback_real_2024_eur_per_mw": [0.0, 100.0, 100.0, 0.0, 0.0, 100.0, 100.0, 0.0],
+                "net_public_cost_real_2024_eur_per_mw": [10.0, -90.0, -90.0, 10.0, 20.0, -80.0, -80.0, 20.0],
+            }
+        )
+        national = annual_region.groupby(["year", "mechanism", "strike_label"], as_index=False).agg(
+            installed_capacity_mw=("installed_capacity_mw", "sum"),
+            top_up_real_2024_eur_per_mw=("top_up_real_2024_eur_per_mw", "mean"),
+            clawback_real_2024_eur_per_mw=("clawback_real_2024_eur_per_mw", "mean"),
+            net_public_cost_real_2024_eur_per_mw=("net_public_cost_real_2024_eur_per_mw", "mean"),
+        )
+        for column in ("top_up", "clawback", "net_public_cost"):
+            national[f"{column}_real_2024_eur_national_total"] = (
+                national[f"{column}_real_2024_eur_per_mw"] * national["installed_capacity_mw"]
+            )
+        output = _build_zonal_public_settlement_annual(annual_region, national)
+        summary = _build_zonal_public_settlement_summary(output)
+        zone = summary.loc[
+            summary["geographic_level"].eq("historical_zone")
+            & summary["summary_statistic"].eq("excluding_2021_2022_annual_mean")
+        ].iloc[0]
+        self.assertEqual(zone["observed_years"], 2)
+        self.assertAlmostEqual(zone["net_public_cost_real_2024_eur_per_mw"], 15.0)
 
 
 class StrikeTests(unittest.TestCase):
@@ -297,6 +467,7 @@ class MechanismTests(unittest.TestCase):
             {
                 "region": list(REGION_TO_ZONE),
                 "producer_mean_annual_revenue_real_2024_eur_per_mw": range(100, 120),
+                "producer_std_annual_revenue_real_2024_eur_per_mw": [float(value) for value in range(1, 21)],
                 "producer_sharpe_ratio": [float(value) for value in range(1, 21)],
             }
         )
@@ -313,6 +484,32 @@ class MechanismTests(unittest.TestCase):
                 self.assertTrue(path.exists())
                 image = imread(path)
                 self.assertGreater(image.shape[1], image.shape[0] * 1.8)
+
+    def test_comparison_colour_scales_support_log_and_symmetric_log(self) -> None:
+        log_norm = _build_colour_norm(
+            pd.Series([1.8, 10.0, 85.6]),
+            centre_on_zero=False,
+            colour_scale="log",
+            symmetric_log_linthresh=5.0,
+        )
+        symmetric_log_norm = _build_colour_norm(
+            pd.Series([-26.3, 0.0, 56.3]),
+            centre_on_zero=True,
+            colour_scale="symlog",
+            symmetric_log_linthresh=5.0,
+        )
+        self.assertIsInstance(log_norm, LogNorm)
+        self.assertIsInstance(symmetric_log_norm, SymLogNorm)
+        self.assertAlmostEqual(abs(symmetric_log_norm.vmin), symmetric_log_norm.vmax)
+
+    def test_log_colour_scale_rejects_non_positive_values(self) -> None:
+        with self.assertRaisesRegex(ValueError, "requires positive values"):
+            _build_colour_norm(
+                pd.Series([0.0, 1.0]),
+                centre_on_zero=False,
+                colour_scale="log",
+                symmetric_log_linthresh=5.0,
+            )
 
     def test_yardstick_differs_by_plant_but_matches_capacity_weighted_portfolio(
         self,

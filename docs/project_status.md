@@ -237,16 +237,27 @@ traceable.
 - Financial-CfD gross top-up and gross clawback are separately accounted before
   calculating net public cost.
 - The Financial-CfD fixed leg is invariant across `K_P50` and `K_P25`.
-- All 30 repository tests pass, including the accounting, normalization,
-  mapping, output-contract, and NotebookLM-bundle tests.
+- All 41 repository tests pass, including accounting, normalization,
+  mapping, output-contract, NotebookLM-bundle, and pre-submission refinement tests.
 - `compileall` passes for `src`, `scripts`, and `tests`.
-- Phase 1 pipeline rerun successfully after clearing stale generated results.
+- Phase 1 and Phase 2 pipelines rerun successfully.
+- Cycle `CFD-2026-09-15-01` pre-submission refinements implemented and validated:
+  regional proxy validation, multi-zone benchmark concentration diagnostic,
+  zonal public cash-flow tables with crisis sensitivity, and SD-first metric hierarchy.
 
 ### Generated local empirical outputs
 
-- 20 auditable CSV tables under `results/historical_cfd_backtest_2015_2024/tables`.
-- Eight paper figures: one market-only 1x3 figure, three primary `K_P50` CfD
-  maps, three `K_P25` appendix maps, and the regional wind-resource map.
+- 28 auditable CSV tables under `results/historical_cfd_backtest_2015_2024/tables`:
+  22 baseline tables (exact SHA-256 hash match), 2 Centro Sud tables, and 4 new
+  pre-submission refinement tables (`regional_proxy_validation_annual.csv`,
+  `regional_proxy_validation.csv`, `zonal_concentration_annual.csv`,
+  `zonal_concentration_summary.csv`, `zonal_public_settlement_annual.csv`,
+  `zonal_public_settlement_summary.csv`).
+- Nine figures under `results/historical_cfd_backtest_2015_2024/figures`:
+  market-only 1x3 map (revenue SD), two primary `K_P50` CfD maps (revenue SD,
+  zonal public settlement incidence), two `K_P25` maps, the regional wind-resource
+  map, the multi-zone concentration risk-compression scatter plot, and the
+  Centro Sud self-influence diagnostic.
 - Natural Earth, normalized Copernicus, and generated results remain local and
   ignored by Git under the repository data policy.
 
@@ -263,8 +274,8 @@ NPV, ROI, or long-run investment conclusion is made.
 1. Complete the author-controlled Introduction and Literature review while
    preserving the validated research question and evidence boundaries.
 2. Perform final British-English and editorial consistency checks.
-3. Transfer the manuscript, bibliography, and eight economic/resource figures to
-   Overleaf and inspect the complete layout.
+3. Transfer the manuscript, bibliography, and figures to Overleaf and inspect the
+   complete layout.
 4. Complete authorship, CRediT, funding, conflicts, acknowledgements, and data-
    archive metadata.
 5. Archive the normalized results and submission materials.

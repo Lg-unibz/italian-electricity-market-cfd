@@ -201,16 +201,39 @@ The full annual Value Factor statistics are written as
 `regional_value_factor_summary.csv`; map-source exports represent infinite
 Sharpe Ratios as the LaTeX-safe strings `+\\infty` and `-\\infty`.
 
-Producer risk is calculated first for each stylised 1 MW regional proxy asset as
-the sample standard deviation of its ten annual revenues. The Sharpe Ratio is
-mean annual revenue divided by that standard deviation with a zero risk-free
-rate; positive-revenue zero-variance cases are stored as `inf`. The market-only
-Value Factor is calculated annually as the regional production-weighted price
-divided by the arithmetic annual price of its historically valid zone. The
-runner generates one 1x3 market-only figure containing mean revenue, Sharpe
-Ratio, and the ten-year mean Value Factor, three 1x3 CfD comparison figures for
-`K_P50`, three corresponding `K_P25` appendix figures, and the regional
-wind-resource figure.
+In accordance with cycle `CFD-2026-09-15-01` pre-submission refinements:
+- **Primary Risk Metric Hierarchy**: Annual revenue standard deviation ($s_r$) is the
+  primary measure of inter-annual cash-flow risk in main figures and tables. The
+  Sharpe-type ratio is retained as a secondary summary indicator; cases with zero
+  annual dispersion ($s_r = 0$) are formally designated as "Ratio undefined due
+  to zero annual variance" (with `+\infty` reserved strictly as a visual plot label).
+- **Regional and Zonal Proxy Validation**: All 200 region-years (2015–2024) are
+  disclosed in `regional_proxy_validation_annual.csv`. Summary metrics (MAE,
+  bias, RMSE, Pearson $r$, rank-based Spearman $\rho$) are provided in
+  `regional_proxy_validation.csv` across three populations: all 200 observations,
+  the primary diagnostic population of 187 region-years with positive realised
+  production, and a sensitivity subset of 147 region-years with installed
+  capacity $\ge 10$ MW. Capacity-weighted aggregates for historical bidding zones
+  confirm strong temporal tracking ($r \ge 0.72$ in major wind zones).
+- **Multi-Zone Benchmark Concentration**: Leave-one-out benchmarking ($M^{-r}_{zhy}$)
+  is generalised across all historical multi-region zones (*Centro Nord, Centro
+  Sud, Nord, Sud*) for Financial CfD and Yardstick $K_{P50}$, yielding
+  `zonal_concentration_annual.csv` (352 rows) and `zonal_concentration_summary.csv`
+  (36 rows). The descriptive figure `benchmark_concentration_risk_compression.png`
+  plots own capacity share against the standard-deviation compression ratio
+  ($s_r^{\mathrm{Inc}} / s_r^{\mathrm{LOO}}$).
+- **Zonal Public Settlement and Crisis Sensitivity**: Public cash flows are reported
+  at bidding-zone resolution in `zonal_public_settlement_annual.csv` and
+  `zonal_public_settlement_summary.csv`. The summary reports full-sample annual
+  mean, annual median, and an 8-year view excluding the 2021–2022 energy crisis.
+
+The runner generates:
+- One 1x3 market-only figure containing mean revenue, annual revenue SD, and ten-year mean Value Factor;
+- Two 1x3 primary CfD comparison figures for $K_{P50}$ (mean revenue, revenue SD, net public cost incidence);
+- Two corresponding 1x3 $K_{P25}$ figures (mean revenue, revenue SD, net public cost);
+- The regional wind-resource figure;
+- The multi-zone concentration risk-compression scatter plot;
+- The focused Centro Sud self-influence diagnostic figure.
 
 The national portfolio summary is retained for public cash-flow accounting and
 to expose the identity created by the benchmark definition. Conventional and
@@ -220,9 +243,14 @@ sum to zero. The Financial CfD's near-zero national portfolio risk is interprete
 the GME price-sign audit; the 2015-2024 sample contains no negative prices.
 
 Each comparison figure maps the 20 regional values directly and uses one common
-colour scale across the three CfD mechanisms and both strike scenarios. Net
-public cost uses a zero-centred diverging scale. Infinite Sharpe Ratios are
-shown at the upper plotting limit and annotated explicitly.
+colour scale across the three CfD mechanisms and both strike scenarios. Revenue
+standard deviation uses a linear scale matching mean revenue. Sharpe Ratios in
+appendix maps use a logarithmic colour scale so that the finite 1.80--85.57 range does
+not compress most regions near the lower bound. Net public cost uses a
+zero-centred symmetric-logarithmic scale with a linear interval of
+plus-or-minus 5 kEUR/MW-year, preserving the sign and zero midpoint while
+resolving moderate and extreme flows. Infinite Sharpe Ratios are shown at the
+upper plotting limit and annotated explicitly.
 The current market-zone boundaries are visual context only: all hourly prices,
 benchmarks, and settlements use the historically valid pre-/post-2021 mapping.
 

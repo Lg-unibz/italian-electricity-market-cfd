@@ -17,7 +17,7 @@ class PackageManifestTests(unittest.TestCase):
     def test_metadata_files_are_parseable(self) -> None:
         metadata = json.loads((ROOT_DIR / ".zenodo.json").read_text(encoding="utf-8"))
         self.assertEqual(metadata["upload_type"], "software")
-        self.assertEqual(metadata["version"], "1.0.0")
+        self.assertEqual(metadata["version"], "1.1.0")
         self.assertTrue((ROOT_DIR / "CITATION.cff").read_text(encoding="utf-8").startswith("cff-version:"))
 
     def test_reference_manifest_has_complete_output_contract(self) -> None:
@@ -26,9 +26,9 @@ class PackageManifestTests(unittest.TestCase):
                 encoding="utf-8"
             )
         )
-        self.assertEqual(manifest["release_version"], "1.0.0")
+        self.assertEqual(manifest["release_version"], "1.1.0")
         self.assertEqual(len(manifest["preprocessing_outputs"]), 21)
-        self.assertEqual(len(manifest["historical_backtest_outputs"]), 28)
+        self.assertEqual(len(manifest["historical_backtest_outputs"]), 40)
 
     def test_source_manifest_has_expected_columns_and_rows(self) -> None:
         with (ROOT_DIR / "data/source_manifest.csv").open(encoding="utf-8", newline="") as handle:

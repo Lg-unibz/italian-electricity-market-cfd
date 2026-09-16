@@ -11,9 +11,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.collections import LineCollection
-from matplotlib.colors import Normalize, TwoSlopeNorm
+from matplotlib.colors import LogNorm, Normalize, SymLogNorm, TwoSlopeNorm
 from matplotlib.path import Path as MplPath
 from matplotlib.patches import PathPatch
+from matplotlib.ticker import NullFormatter, NullLocator
 
 from market_preprocessing.config import RAW_DIR
 from market_preprocessing.mapping import REGION_TO_ZONE
@@ -88,6 +89,8 @@ def plot_regional_mechanism_comparison(
     output_path: Path,
     *,
     centre_on_zero: bool = False,
+    colour_scale: str = "linear",
+    symmetric_log_linthresh: float = 5.0,
     scale_source: pd.DataFrame | None = None,
     mechanisms: tuple[str, ...] = (
         "conventional_cfd",
@@ -126,22 +129,12 @@ def plot_regional_mechanism_comparison(
     scale_values_plot = (
         scale_values_plot / 1_000 if "eur" in value_column else scale_values_plot
     )
-    if centre_on_zero:
-        absolute_limit = max(float(scale_values_plot.abs().max()) * 1.03, 1.0)
-        norm: Normalize = TwoSlopeNorm(
-            vmin=-absolute_limit,
-            vcenter=0.0,
-            vmax=absolute_limit,
-        )
-    else:
-        minimum = float(scale_values_plot.min())
-        maximum = float(scale_values_plot.max())
-        span = maximum - minimum
-        padding = max(span * 0.03, 0.5)
-        norm = Normalize(
-            vmin=minimum - padding,
-            vmax=maximum + padding,
-        )
+    norm = _build_colour_norm(
+        scale_values_plot,
+        centre_on_zero=centre_on_zero,
+        colour_scale=colour_scale,
+        symmetric_log_linthresh=symmetric_log_linthresh,
+    )
 
     fig, axes = plt.subplots(
         1,
@@ -168,8 +161,15 @@ def plot_regional_mechanism_comparison(
         axis.set_title(panel_titles[mechanism], loc="center", fontsize=12, pad=8)
 
     colorbar_label = colour_bar_label
+    if colour_scale == "log":
+        colorbar_label = f"{colorbar_label}; logarithmic colour scale"
+    elif colour_scale == "symlog":
+        colorbar_label = (
+            f"{colorbar_label}; symmetric logarithmic colour scale "
+            f"(linear within ±{symmetric_log_linthresh:g})"
+        )
     if infinite_present:
-        colorbar_label = f"{colour_bar_label}; ∞ = zero annual SD"
+        colorbar_label = f"{colorbar_label}; ∞ = zero annual SD"
     colour_bar = fig.colorbar(
         last_mappable,
         ax=list(axes.flat),
@@ -181,6 +181,24 @@ def plot_regional_mechanism_comparison(
     )
     colour_bar.ax.tick_params(labelsize=10)
     colour_bar.set_label(colorbar_label, fontsize=11)
+    if colour_scale == "log":
+        ticks = [
+            value
+            for value in (1, 2, 5, 10, 20, 50, 80, 100, 200)
+            if float(norm.vmin) <= value <= float(norm.vmax)
+        ]
+        colour_bar.set_ticks(ticks)
+        colour_bar.set_ticklabels([f"{value:g}" for value in ticks])
+        colour_bar.ax.xaxis.set_minor_locator(NullLocator())
+        colour_bar.ax.xaxis.set_minor_formatter(NullFormatter())
+    elif colour_scale == "symlog":
+        ticks = [
+            value
+            for value in (-100, -50, -20, -10, -5, 0, 5, 10, 20, 50, 100)
+            if float(norm.vmin) <= value <= float(norm.vmax)
+        ]
+        colour_bar.set_ticks(ticks)
+        colour_bar.set_ticklabels([f"{value:g}" for value in ticks])
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path, dpi=450, bbox_inches="tight", facecolor="white")
     plt.close(fig)
@@ -204,18 +222,65 @@ def _select_mechanism_values(
     return pd.to_numeric(selection.set_index("region")[value_column], errors="raise")
 
 
+def _build_colour_norm(
+    values: pd.Series,
+    *,
+    centre_on_zero: bool,
+    colour_scale: str,
+    symmetric_log_linthresh: float,
+) -> Normalize:
+    """Build a shared linear, logarithmic, or symmetric-log colour scale."""
+
+    finite = pd.to_numeric(values, errors="raise").astype(float)
+    finite = finite[np.isfinite(finite)]
+    if finite.empty:
+        raise ValueError("Colour-scale values must contain at least one finite value")
+    if colour_scale == "log":
+        if bool((finite <= 0).any()):
+            raise ValueError("A logarithmic colour scale requires positive values")
+        return LogNorm(
+            vmin=float(finite.min()) / 1.03,
+            vmax=float(finite.max()) * 1.03,
+        )
+    if colour_scale == "symlog":
+        if symmetric_log_linthresh <= 0:
+            raise ValueError("Symmetric-log linear threshold must be positive")
+        absolute_limit = max(float(finite.abs().max()) * 1.03, 1.0)
+        return SymLogNorm(
+            linthresh=symmetric_log_linthresh,
+            linscale=1.0,
+            vmin=-absolute_limit,
+            vmax=absolute_limit,
+            base=10,
+        )
+    if colour_scale != "linear":
+        raise ValueError(f"Unsupported colour scale: {colour_scale}")
+    if centre_on_zero:
+        absolute_limit = max(float(finite.abs().max()) * 1.03, 1.0)
+        return TwoSlopeNorm(
+            vmin=-absolute_limit,
+            vcenter=0.0,
+            vmax=absolute_limit,
+        )
+    minimum = float(finite.min())
+    maximum = float(finite.max())
+    span = maximum - minimum
+    padding = max(span * 0.03, 0.5)
+    return Normalize(vmin=minimum - padding, vmax=maximum + padding)
+
+
 def plot_market_only_metrics(
     geometries: dict[str, RegionGeometry],
     source: pd.DataFrame,
     decadal_value_factor: pd.DataFrame,
     output_path: Path,
 ) -> None:
-    """Plot market-only revenue, Sharpe Ratio, and decadal Value Factor."""
+    """Plot market-only revenue, annual revenue SD, and decadal Value Factor."""
 
     required = {
         "region",
         "producer_mean_annual_revenue_real_2024_eur_per_mw",
-        "producer_sharpe_ratio",
+        "producer_std_annual_revenue_real_2024_eur_per_mw",
     }
     missing = sorted(required - set(source.columns))
     if missing:
@@ -237,10 +302,10 @@ def plot_market_only_metrics(
             "Mean annual revenue",
         ),
         (
-            "producer_sharpe_ratio",
-            "plasma",
-            "Sharpe Ratio [mean annual revenue / annual SD]",
-            "Sharpe Ratio",
+            "producer_std_annual_revenue_real_2024_eur_per_mw",
+            "magma",
+            "Annual revenue SD [kEUR/MW-year, real 2024]",
+            "Annual revenue SD",
         ),
         (
             "ten_year_mean_value_factor",
@@ -313,6 +378,142 @@ def plot_market_only_metrics(
                 ha="center",
                 fontsize=8,
             )
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output_path, dpi=450, bbox_inches="tight", facecolor="white")
+    plt.close(fig)
+
+
+def plot_benchmark_concentration_risk_compression(
+    summary: pd.DataFrame,
+    output_path: Path,
+) -> None:
+    """Plot descriptive own-share versus inclusive/leave-one-out SD ratios."""
+
+    required = {
+        "historical_zone",
+        "mechanism",
+        "mean_own_capacity_share",
+        "inclusive_to_leave_one_out_sd_ratio",
+    }
+    missing = sorted(required - set(summary.columns))
+    if missing:
+        raise ValueError(f"Missing concentration scatter columns: {missing}")
+    source = summary.loc[
+        np.isfinite(summary["mean_own_capacity_share"])
+        & np.isfinite(summary["inclusive_to_leave_one_out_sd_ratio"])
+    ].copy()
+    if source.empty:
+        raise ValueError("Concentration scatter requires at least one finite ratio")
+    colours = {
+        "Nord": "#35608d",
+        "Centro Nord": "#668e43",
+        "Centro Sud": "#d98a2b",
+        "Sud": "#a64848",
+    }
+    markers = {"schlecht_fcfd": "o", "zonal_yardstick_cfd": "s"}
+    fig, axis = plt.subplots(figsize=(7.2, 5.2), constrained_layout=True)
+    for (zone, mechanism), frame in source.groupby(["historical_zone", "mechanism"], sort=True):
+        mechanism_label = "Financial" if mechanism == "schlecht_fcfd" else "Yardstick K_P50"
+        axis.scatter(
+            frame["mean_own_capacity_share"],
+            frame["inclusive_to_leave_one_out_sd_ratio"],
+            color=colours.get(zone, "#666666"),
+            marker=markers[mechanism],
+            s=58,
+            alpha=0.85,
+            label=f"{zone} — {mechanism_label}",
+        )
+    axis.axhline(1.0, color="#555555", linewidth=0.8, linestyle="--")
+    axis.set_xlabel("Mean own capacity share in historical zone")
+    axis.set_ylabel("Inclusive SD / leave-one-out SD")
+    axis.set_title("Benchmark concentration and descriptive risk compression")
+    axis.set_ylim(bottom=0.0)
+    axis.grid(alpha=0.25)
+    axis.set_axisbelow(True)
+    axis.legend(frameon=False, fontsize=7, ncols=2)
+    fig.text(
+        0.5,
+        -0.02,
+        "Descriptive diagnostic: benchmark exposure is mechanically attenuated by own capacity share.",
+        ha="center",
+        fontsize=8,
+    )
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output_path, dpi=450, bbox_inches="tight", facecolor="white")
+    plt.close(fig)
+
+
+def plot_centro_sud_benchmark_self_influence(
+    geometries: dict[str, RegionGeometry],
+    summary: pd.DataFrame,
+    output_path: Path,
+) -> None:
+    """Plot the focused Centro Sud benchmark self-influence diagnostic."""
+
+    regions = ("Campania", "Abruzzo", "Lazio", "Umbria")
+    required = {
+        "region", "mechanism", "eligible_years", "mean_own_capacity_share",
+        "inclusive_std_annual_revenue_real_2024_eur_per_mw",
+        "leave_one_out_std_annual_revenue_real_2024_eur_per_mw",
+    }
+    missing = sorted(required - set(summary.columns))
+    if missing:
+        raise ValueError(f"Missing Centro Sud diagnostic columns: {missing}")
+    subset_geometries = {region: geometries[region] for region in regions}
+    if len(summary) != 8 or set(summary["region"]) != set(regions):
+        raise ValueError("Centro Sud diagnostic must have two rows for each focus region")
+    financial = summary.loc[summary["mechanism"].eq("Financial CfD")].set_index("region")
+    yardstick = summary.loc[summary["mechanism"].eq("Zonal Yardstick CfD")].set_index("region")
+    if len(financial) != 4 or len(yardstick) != 4:
+        raise ValueError("Centro Sud diagnostic mechanisms are incomplete")
+
+    fig, axes = plt.subplots(1, 3, figsize=(15.0, 5.0), constrained_layout=True)
+    norm = Normalize(vmin=0.0, vmax=1.0)
+    mappable = _draw_regions(
+        axes[0],
+        subset_geometries,
+        financial["mean_own_capacity_share"].to_dict(),
+        "YlOrRd",
+        norm,
+    )
+    for region in regions:
+        xmin, ymin, xmax, ymax = _bounds({region: subset_geometries[region]})
+        axes[0].text(
+            (xmin + xmax) / 2, (ymin + ymax) / 2,
+            f"{region}\n{financial.loc[region, 'mean_own_capacity_share'] * 100:.1f}%",
+            ha="center", va="center", fontsize=8,
+            fontweight="bold" if region == "Campania" else "normal",
+            bbox={"facecolor": "white", "alpha": 0.72, "edgecolor": "none", "pad": 1.0},
+        )
+    axes[0].set_title("Mean Centro Sud capacity share")
+    colour_bar = fig.colorbar(mappable, ax=axes[0], fraction=0.048, pad=0.02)
+    colour_bar.set_label("Share of zonal capacity")
+
+    labels = [f"{region}\n(n={int(financial.loc[region, 'eligible_years'])})" for region in regions]
+    positions = np.arange(len(regions))
+    width = 0.37
+    for axis, source, title in (
+        (axes[1], financial, "Financial CfD"),
+        (axes[2], yardstick, "Zonal Yardstick CfD ($K_{P50}$)"),
+    ):
+        inclusive = source.loc[list(regions), "inclusive_std_annual_revenue_real_2024_eur_per_mw"].to_numpy() / 1_000
+        leave_one_out = source.loc[list(regions), "leave_one_out_std_annual_revenue_real_2024_eur_per_mw"].to_numpy() / 1_000
+        axis.bar(positions - width / 2, inclusive, width, label="Inclusive", color="#35608d")
+        axis.bar(positions + width / 2, leave_one_out, width, label="Leave-one-out", color="#e17c40")
+        axis.set_xticks(positions, labels, fontsize=8)
+        axis.set_ylabel("Annual revenue SD [kEUR/MW-year]")
+        axis.set_title(title)
+        axis.grid(axis="y", alpha=0.25)
+        axis.set_axisbelow(True)
+        for tick, region in zip(axis.get_xticklabels(), regions, strict=True):
+            if region == "Campania":
+                tick.set_fontweight("bold")
+    axes[1].legend(frameon=False, fontsize=8)
+    fig.text(
+        0.5, -0.02,
+        "Statistics use historical zone membership; Umbria is comparable only from 2021 to 2024.",
+        ha="center", fontsize=8,
+    )
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path, dpi=450, bbox_inches="tight", facecolor="white")
     plt.close(fig)

@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it using the metadata below."
 title: "Italian Electricity Market CfD Backtest"
 type: software
-version: 1.0.0
-date-released: 2026-07-28
+version: 1.1.0
+date-released: 2026-09-16
 authors:
   - family-names: Gambadori
     given-names: Lorenzo
@@ -25,4 +25,4 @@ references:
       - family-names: Gambadori
         given-names: Lorenzo
     doi: 10.5281/zenodo.21640789
-    version: 1.0.0
+    version: 1.1.0

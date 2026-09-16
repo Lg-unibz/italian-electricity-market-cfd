@@ -192,7 +192,7 @@ def main() -> int:
 
     payload: dict[str, object] = {
         "schema_version": 1,
-        "release_version": "1.0.0",
+        "release_version": "1.1.0",
         "study_period": "2015-2024",
         "generated_on": date.today().isoformat(),
         "reference_environment": {

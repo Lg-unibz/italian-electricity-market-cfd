@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "release_version": "1.0.0",
+  "release_version": "1.1.0",
   "study_period": "2015-2024",
-  "generated_on": "2026-07-28",
+  "generated_on": "2026-09-16",
   "reference_environment": {
     "python": "3.14.0",
     "platform": "Windows-11-10.0.26200-SP0",
@@ -28,13 +28,13 @@
     },
     {
       "path": "src/cfd_analysis/geography.py",
-      "size_bytes": 20634,
-      "sha256": "eb0497c92129afebd4785cc82d6b8e73f83122479625e4098e5359fbae1dbb47"
+      "size_bytes": 29208,
+      "sha256": "76f4c0812b4330642c785aedcec6ea7dd8b16af8c0eaed98047d1ee189e1a823"
     },
     {
       "path": "src/cfd_analysis/historical_backtest.py",
-      "size_bytes": 21387,
-      "sha256": "fc86a985c93ec770cab0e4cc21c4f75f61a0f0d5b011ae25a953a3207649bb07"
+      "size_bytes": 49945,
+      "sha256": "7e3ca4fc9f6a18cb79700888bc709f52206e2df9b4af630f3d9ddc087c83ed09"
     },
     {
       "path": "src/cfd_analysis/historical_inputs.py",
@@ -99,12 +99,12 @@
     {
       "path": "scripts/build_reference_manifest.py",
       "size_bytes": 7258,
-      "sha256": "d96d1d888695477a9cb729613618aa37f811448edff797551a78ced97952284e"
+      "sha256": "40a906019e2d186460544d3a9047108007c6d952a9f06d22fbd0a5994c38d75d"
     },
     {
       "path": "scripts/build_zenodo_data_deposit.py",
-      "size_bytes": 7156,
-      "sha256": "239e02c9ab3e047016afefb05eef70202ab74e0569ac3da591bf8687760b59e3"
+      "size_bytes": 7166,
+      "sha256": "2bcb65f437a57b128086275aff5b2ec83f948799ea3598cc24497b480f58ec95"
     },
     {
       "path": "scripts/check_publication_package.py",
@@ -163,8 +163,8 @@
     },
     {
       "path": "tests/test_historical_cfd.py",
-      "size_bytes": 23358,
-      "sha256": "78a8d7982711be5af9f2793aec833c446a774621d1b434e372e9543d022ced45"
+      "size_bytes": 33716,
+      "sha256": "6ec03930e70b61a8ab9a4039220b64db4b61e55a03e646d4cb8320bdd01f2007"
     },
     {
       "path": "tests/test_package_manifest.py",
@@ -184,7 +184,7 @@
     {
       "path": "pyproject.toml",
       "size_bytes": 547,
-      "sha256": "1a693659cf0e1a07c9be66ae3433d255e9529bf293fefcb9d4e97b09fe7e93e6"
+      "sha256": "472234d6e094bd0ef3a7f711321404311e6c450bc0d00914b89a5f97eaa46480"
     },
     {
       "path": ".python-version",
@@ -611,6 +611,16 @@
   ],
   "historical_backtest_outputs": [
     {
+      "path": "results/historical_cfd_backtest_2015_2024/figures/benchmark_concentration_risk_compression.png",
+      "size_bytes": 289105,
+      "sha256": "a78f5482e0acc0afad0f4da0acd82734dd4d10a745eeaaefd669b7bd4600951d"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/figures/centro_sud_benchmark_self_influence.png",
+      "size_bytes": 630274,
+      "sha256": "4139d38a76dbbf4ae77be74da65d5bb049777a99db37fe15f75870aa94a32dcd"
+    },
+    {
       "path": "results/historical_cfd_backtest_2015_2024/figures/cfd_comparison_mean_revenue_k_p25.png",
       "size_bytes": 1445470,
       "sha256": "cbb043c3217a8cb72b745251130272df02c26bb2c1dd3f92dcc6b1533420c322"
@@ -622,28 +632,38 @@
     },
     {
       "path": "results/historical_cfd_backtest_2015_2024/figures/cfd_comparison_net_public_cost_k_p25.png",
-      "size_bytes": 1463895,
-      "sha256": "9a5aee23d441e8b70707b0b9bdd2d43e30422cde1860dd0e8f74e5bca8bb3201"
+      "size_bytes": 1480745,
+      "sha256": "07d3f1b44b322065db3b53d01e6a5be5c3358340a077490b1db274939f16ecf9"
     },
     {
       "path": "results/historical_cfd_backtest_2015_2024/figures/cfd_comparison_net_public_cost_k_p50.png",
-      "size_bytes": 1481132,
-      "sha256": "4d51b8dea65afd0cc914059f36eb973bebb4eb8672c17e8e86ed4731e14e6d0f"
+      "size_bytes": 1467120,
+      "sha256": "25556eeceaf1558f611fea5cb3f23f1ecf931573e4244d9148fdb295fa346db1"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/figures/cfd_comparison_revenue_sd_k_p25.png",
+      "size_bytes": 1385697,
+      "sha256": "69dddbe52cfd6ae80d3c6c0317d73644bb16674e50fc488204c9cfc29d6fef9d"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/figures/cfd_comparison_revenue_sd_k_p50.png",
+      "size_bytes": 1380804,
+      "sha256": "b1f5cd25810c5ebe457a63792e9d6915af1eaa1520001b3ac586f3d1e7bc481d"
     },
     {
       "path": "results/historical_cfd_backtest_2015_2024/figures/cfd_comparison_sharpe_ratio_k_p25.png",
-      "size_bytes": 1447128,
-      "sha256": "270133e13e81188502d0ecbc31cafef45095b7606e5326a0209e97b6051e1dcb"
+      "size_bytes": 1473004,
+      "sha256": "2c1df6a5ff8252075c2850937eecb36e2f3b7c05dacf04c69558a40473089ee0"
     },
     {
       "path": "results/historical_cfd_backtest_2015_2024/figures/cfd_comparison_sharpe_ratio_k_p50.png",
-      "size_bytes": 1447216,
-      "sha256": "2aea8979f5d080c46d4ec49385e3fd0e3d6cc032ee63b4c4247ba57713241d52"
+      "size_bytes": 1472237,
+      "sha256": "19ba870ea48c8e33b3140d89b3c3c6799a5d4c51d8262ee4ea380ade67ed6f42"
     },
     {
       "path": "results/historical_cfd_backtest_2015_2024/figures/italy_market_only_maps.png",
-      "size_bytes": 1592315,
-      "sha256": "c31891ab10953188eee2c23bdca597885af29bf222b4ec87cf1c11e4fa6fab8b"
+      "size_bytes": 1587860,
+      "sha256": "9123f34e6ddcc51397f752effb84311bd57cff24163b8ae9c58cc88433ec5e37"
     },
     {
       "path": "results/historical_cfd_backtest_2015_2024/figures/italy_regional_wind_capacity_factor.png",
@@ -664,6 +684,16 @@
       "path": "results/historical_cfd_backtest_2015_2024/tables/annual_region_mechanism_results.csv",
       "size_bytes": 293422,
       "sha256": "f0cdb9331c23d32f8891f3da9293bbce4a10123746377a4dc298bce0a175e052"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/centro_sud_leave_one_out_annual.csv",
+      "size_bytes": 8466,
+      "sha256": "4ac4dd8e6cdfb1dfd6a3370993052d558bc9995c6db5da8832c1b682ab1d2e22"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/centro_sud_leave_one_out_summary.csv",
+      "size_bytes": 2150,
+      "sha256": "72d6b94a8dcfdc0bd6f92f4004eb05ae3201249f22876ae5e242bab731fa38b2"
     },
     {
       "path": "results/historical_cfd_backtest_2015_2024/tables/copernicus_hourly_coverage_audit.csv",
@@ -726,6 +756,16 @@
       "sha256": "990a800335aa72609089d7fc3bc029273ac40ade01a32277373e2a3c344bfa5c"
     },
     {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/regional_proxy_validation.csv",
+      "size_bytes": 13288,
+      "sha256": "75bc6b4c4f03ed6a82176df93add8f08b7fcbbe765bfa8e662c2071c1c3cc269"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/regional_proxy_validation_annual.csv",
+      "size_bytes": 29191,
+      "sha256": "e4efccc5f9290180443dd05171132812f8a8b3a4b7fcf041c5fc60da2e981109"
+    },
+    {
       "path": "results/historical_cfd_backtest_2015_2024/tables/regional_value_factor_summary.csv",
       "size_bytes": 1797,
       "sha256": "cfc349d3cc39c608cfaaf5d4d81c5ae7d11bf7da14087517838159268432b2c3"
@@ -741,19 +781,34 @@
       "sha256": "85f964c38aa09c921807de8e646fac08677b6b20f2bbc04080dbaf8c28794067"
     },
     {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/zonal_concentration_annual.csv",
+      "size_bytes": 68768,
+      "sha256": "2a5a195a3ae5f319fabd3511d5ab49e37213a695eb6364bad43b227a4cf8892d"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/zonal_concentration_summary.csv",
+      "size_bytes": 8775,
+      "sha256": "36b0bd9d811468097b3edf019a8dfba46b9c9dffb9b48076bdc26f6f6587e862"
+    },
+    {
       "path": "results/historical_cfd_backtest_2015_2024/tables/zonal_heatmap_source.csv",
       "size_bytes": 6270,
       "sha256": "19552a38fcf15baf1b037055c7a47b622c8b00a1d30ee67bf18fcab7745403a1"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/zonal_public_settlement_annual.csv",
+      "size_bytes": 78323,
+      "sha256": "7000fed60ad8c1a826cf808c05b8f9460f4ea7316359a857ebf6af06e2bf8bd8"
+    },
+    {
+      "path": "results/historical_cfd_backtest_2015_2024/tables/zonal_public_settlement_summary.csv",
+      "size_bytes": 20252,
+      "sha256": "92c03e7f38a47bc0e31978c7a1a3dd019d2102532452d26f6796ced40f48b10f"
     },
     {
       "path": "results/historical_cfd_backtest_2015_2024/tables/zonal_yardstick_30000_mwh_limit.csv",
       "size_bytes": 1470,
       "sha256": "a5a1db25ed24c3bf9e70be6e306a0704eca09af339c6e232a743d8b2312da960"
     }
-  ],
-  "manuscript": {
-    "path": "main.tex",
-    "size_bytes": 38802,
-    "sha256": "db7de523073a5e9c449307ad9d51ae8badeb77537b00192803fd3baa9eb60753"
-  }
+  ]
 }
