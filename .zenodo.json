@@ -21,10 +21,10 @@
   ],
   "related_identifiers": [
     {
-      "identifier": "https://doi.org/10.5281/zenodo.21640789",
+      "identifier": "https://doi.org/10.5281/zenodo.22790673",
       "relation": "isSupplementedBy",
       "resource_type": "dataset"
     }
   ],
-  "notes": "GME and Terna raw files are not redistributed in this software archive. The companion Zenodo dataset is available at https://doi.org/10.5281/zenodo.21640789; see data/source_manifest.csv for source and rights information."
+  "notes": "GME and Terna raw files are not redistributed in this software archive. The companion Zenodo dataset is available at https://doi.org/10.5281/zenodo.22790673; see data/source_manifest.csv for source and rights information."
 }

@@ -45,13 +45,13 @@ publish the record.
 ## 3. Link the data DOI before the software release
 
 The published companion dataset DOI is
-[`10.5281/zenodo.21640789`](https://doi.org/10.5281/zenodo.21640789). It has
+[`10.5281/zenodo.22790673`](https://doi.org/10.5281/zenodo.22790673). It has
 been added to `.zenodo.json` as:
 
 ```json
 "related_identifiers": [
   {
-    "identifier": "https://doi.org/10.5281/zenodo.21640789",
+    "identifier": "https://doi.org/10.5281/zenodo.22790673",
     "relation": "isSupplementedBy",
     "resource_type": "dataset"
   }

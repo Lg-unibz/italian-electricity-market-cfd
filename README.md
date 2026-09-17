@@ -27,7 +27,7 @@ terms do not establish an unrestricted redistribution licence. The normalized
 Copernicus input is about 584 MB uncompressed and therefore exceeds GitHub's
 regular 100 MB per-file limit.
 The companion Zenodo dataset is available at
-[10.5281/zenodo.21640789](https://doi.org/10.5281/zenodo.21640789). The
+[10.5281/zenodo.22790673](https://doi.org/10.5281/zenodo.22790673). The
 acquisition, normalization, and data-release workflow is documented in
 [`data/README.md`](data/README.md),
 [`data/source_manifest.csv`](data/source_manifest.csv), and
